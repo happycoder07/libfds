@@ -1,0 +1,1 @@
+sudo apt-get install gcc g++ cmake make libxml2-dev liblz4-dev libzstd-dev doxygen pkg-config -y 
