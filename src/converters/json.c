@@ -1227,10 +1227,10 @@ to_stlist(struct context *buffer, const struct fds_drec_field *field)
     int added = 0;
     struct fds_stlist_iter stlist_iter;
 
-    ret_code = buffer_append(buffer,"{\"@type\":\"subTemplateList\",\"semantic\":\"");
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = buffer_append(buffer,"{\"@type\":\"subTemplateList\",\"semantic\":\"");
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     fds_stlist_iter_init(&stlist_iter, (struct fds_drec_field *) field, buffer->snap, 0);
 
@@ -1240,10 +1240,10 @@ to_stlist(struct context *buffer, const struct fds_drec_field *field)
         return ret_code;
     }
 
-    ret_code = buffer_append(buffer,"\",\"data\":[");
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = buffer_append(buffer,"\",\"data\":[");
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     // Add records from the list
     int rc_iter;
@@ -1257,21 +1257,21 @@ to_stlist(struct context *buffer, const struct fds_drec_field *field)
         }
 
         // Add "{" in the beginning of each structure
-        ret_code = buffer_append(buffer,"{");
-        if (ret_code != FDS_OK) {
-            return ret_code;
-        }
+        // ret_code = buffer_append(buffer,"{");
+        // if (ret_code != FDS_OK) {
+        //     return ret_code;
+        // }
 
         ret_code = iter_loop(&stlist_iter.rec, buffer);
         if (ret_code != FDS_OK) {
             return ret_code;
         }
 
-        // Add "{" in the beginning of each structure
-        ret_code = buffer_append(buffer,"}");
-        if (ret_code != FDS_OK) {
-            return ret_code;
-        }
+        // // Add "{" in the beginning of each structure
+        // ret_code = buffer_append(buffer,"}");
+        // if (ret_code != FDS_OK) {
+        //     return ret_code;
+        // }
 
         added++;
     }
@@ -1281,10 +1281,10 @@ to_stlist(struct context *buffer, const struct fds_drec_field *field)
         return FDS_ERR_ARG;
     }
 
-    ret_code = buffer_append(buffer,"]}");
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = buffer_append(buffer,"]}");
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     return FDS_OK;
 }
@@ -1304,10 +1304,10 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
     int ret_code;
     struct fds_stmlist_iter stMulList_iter;
 
-    ret_code = buffer_append(buffer,"{\"@type\":\"subTemplateMultiList\",\"semantic\":\"");
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = buffer_append(buffer,"{\"@type\":\"subTemplateMultiList\",\"semantic\":\"");
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     fds_stmlist_iter_init(&stMulList_iter, (struct fds_drec_field *) field, buffer->snap, 0);
 
@@ -1317,10 +1317,10 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
         return ret_code;
     }
 
-    ret_code = buffer_append(buffer,"\",\"data\":[");
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = buffer_append(buffer,"\",\"data\":[");
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     // Loop through blocks in the list
     int added = 0;
@@ -1336,11 +1336,11 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
                 return ret_code;
             }
         }
-        // Add opening bracket for block
-        ret_code = buffer_append(buffer,"[");
-        if (ret_code != FDS_OK) {
-            return ret_code;
-        }
+        // // Add opening bracket for block
+        // ret_code = buffer_append(buffer,"[");
+        // if (ret_code != FDS_OK) {
+        //     return ret_code;
+        // }
 
         // Loop through individual records in the current block
         int added_in_block = 0;
@@ -1354,10 +1354,10 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
                 }
             }
             // Add opening bracket for the record
-            ret_code = buffer_append(buffer,"{");
-            if (ret_code != FDS_OK) {
-                return ret_code;
-            }
+            // ret_code = buffer_append(buffer,"{");
+            // if (ret_code != FDS_OK) {
+            //     return ret_code;
+            // }
 
             ret_code = iter_loop(&stMulList_iter.rec, buffer);
             if (ret_code != FDS_OK) {
@@ -1365,10 +1365,10 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
             }
 
             // Add closing bracket for the record
-            ret_code = buffer_append(buffer,"}");
-            if (ret_code != FDS_OK) {
-                return ret_code;
-            }
+            // ret_code = buffer_append(buffer,"}");
+            // if (ret_code != FDS_OK) {
+            //     return ret_code;
+            // }
             added_in_block++;
         }
 
@@ -1378,10 +1378,10 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
         }
 
         // Add closing bracket for block
-        ret_code = buffer_append(buffer,"]");
-        if (ret_code != FDS_OK) {
-            return ret_code;
-        }
+        // ret_code = buffer_append(buffer,"]");
+        // if (ret_code != FDS_OK) {
+        //     return ret_code;
+        // }
         added++;
     }
 
@@ -1391,10 +1391,10 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
     }
 
     // Add closing bracket for field
-    ret_code = buffer_append(buffer,"]}");
-    if (ret_code != FDS_OK){
-        return ret_code;
-    }
+    // ret_code = buffer_append(buffer,"]}");
+    // if (ret_code != FDS_OK){
+    //     return ret_code;
+    // }
 
     return FDS_OK;
 }
