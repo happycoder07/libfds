@@ -1121,13 +1121,20 @@ to_blist(struct context *buffer, const struct fds_drec_field *field)
     int added = 0;
     struct fds_blist_iter blist_iter;
 
-    ret_code = buffer_append(buffer,"{\"@type\":\"basicList\",\"data\":[");
+    ret_code = buffer_append(buffer,"[");
     if (ret_code != FDS_OK) {
         return ret_code;
     }
 
     fds_blist_iter_init(&blist_iter, (struct fds_drec_field *) field, buffer->mgr);
     converter_fn fn = NULL;
+
+    ret_code = add_field_name(buffer, &blist_iter.field);
+    if (ret_code != FDS_OK) {
+        return ret_code;
+    }
+
+   
 
     // Add values from the list
     int rc_iter;
@@ -1173,7 +1180,7 @@ to_blist(struct context *buffer, const struct fds_drec_field *field)
     }
 
     // Add semantic and Field ID
-    ret_code = buffer_append(buffer, "],\"semantic\":\"");
+    ret_code = buffer_append(buffer, "]");
     if (ret_code != FDS_OK) {
         return ret_code;
     }
@@ -1183,23 +1190,23 @@ to_blist(struct context *buffer, const struct fds_drec_field *field)
         return ret_code;
     }
 
-    ret_code = buffer_append(buffer,"\",\"fieldID\":");
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = buffer_append(buffer,"\",\"fieldID\":");
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
-    ret_code = add_field_name(buffer, &blist_iter.field);
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = add_field_name(buffer, &blist_iter.field);
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     // We have to "remove" the additional colon after the identifier
-    --buffer->write_begin;
+  //  --buffer->write_begin;
 
-    ret_code = buffer_append(buffer,"}");
-    if (ret_code != FDS_OK){
-        return ret_code;
-    }
+    // ret_code = buffer_append(buffer,"}");
+    // if (ret_code != FDS_OK){
+    //     return ret_code;
+    // }
 
     return FDS_OK;
 }
@@ -1489,7 +1496,7 @@ fds_drec2json(const struct fds_drec *rec, uint32_t flags, const fds_iemgr_t *ie_
     if (rec->tmplt->type == FDS_TYPE_TEMPLATE_OPTS) {
         ret_code = buffer_append(&record,"{\"@type\":\"ipfix.optionsEntry\",");
     } else {
-        ret_code = buffer_append(&record, "{\"@type\":\"ipfix.entry\",");
+        ret_code = buffer_append(&record, "{");
     }
     if (ret_code != FDS_OK) {
         goto error;
