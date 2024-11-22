@@ -1084,22 +1084,22 @@ add_sematic(struct context *buffer, int semantic) {
 
     switch (semantic) {
     case FDS_IPFIX_LIST_NONE_OF:
-        ret_code = buffer_append(buffer, "noneOf");
+        ret_code = buffer_append(buffer, "\"noneOf\",");
         break;
     case FDS_IPFIX_LIST_EXACTLY_ONE_OF:
-        ret_code = buffer_append(buffer, "exactlyOneOf");
+        ret_code = buffer_append(buffer, "\"exactlyOneOf\",");
         break;
     case FDS_IPFIX_LIST_ONE_OR_MORE_OF:
-        ret_code = buffer_append(buffer, "oneOrMoreOf");
+        ret_code = buffer_append(buffer, "\"oneOrMoreOf\",");
         break;
     case FDS_IPFIX_LIST_ALL_OF:
-        ret_code = buffer_append(buffer, "allOf");
+        ret_code = buffer_append(buffer, "\"allOf\"");
         break;
     case FDS_IPFIX_LIST_ORDERED:
-        ret_code = buffer_append(buffer, "ordered");
+        ret_code = buffer_append(buffer, "\"ordered\",");
         break;
     default:
-        ret_code = buffer_append(buffer, "undefined");
+        ret_code = buffer_append(buffer, "\"undefined\",");
         break;
     }
     return ret_code;
