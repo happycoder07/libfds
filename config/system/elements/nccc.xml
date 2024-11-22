@@ -2,7 +2,7 @@
 <ipfix-elements>
 	<scope>
 		<pen>57786</pen>
-		<name>cdot</name>
+		<name>nccc</name>
 		<biflow mode="split">15</biflow>
 	</scope>
 	<!-- Extracted from yaf-2.10.0 /infomodel/cert.xml -->
