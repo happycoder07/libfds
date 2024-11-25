@@ -857,6 +857,8 @@ static int
 multi_fields(const struct fds_drec *rec, struct context *buffer,
     converter_fn fn, uint32_t en, uint16_t id, uint16_t iter_flag)
 {
+
+    
     // Initialization of an iterator
     struct fds_drec_iter iter_mul_f;
     fds_drec_iter_init(&iter_mul_f, (struct fds_drec *) rec, iter_flag);
@@ -1118,6 +1120,10 @@ int
 to_blist(struct context *buffer, const struct fds_drec_field *field)
 {
     int ret_code;
+      ret_code = buffer_append(buffer,"BEGIN-BLIST");
+    if (ret_code != FDS_OK) {
+        return ret_code;
+    }
     int added = 0;
     struct fds_blist_iter blist_iter;
 
@@ -1212,6 +1218,11 @@ to_blist(struct context *buffer, const struct fds_drec_field *field)
     //     return ret_code;
     // }
 
+       ret_code = buffer_append(buffer,"END-BLIST");
+    if (ret_code != FDS_OK) {
+        return ret_code;
+    }
+
     return FDS_OK;
 }
 
@@ -1226,8 +1237,14 @@ to_blist(struct context *buffer, const struct fds_drec_field *field)
  */
 int
 to_stlist(struct context *buffer, const struct fds_drec_field *field)
-{
+{       
+    
     int ret_code;
+     ret_code = buffer_append(buffer,"BEGIN-STL");
+    if (ret_code != FDS_OK) {
+        return ret_code;
+    }
+
     int added = 0;
     struct fds_stlist_iter stlist_iter;
 
@@ -1290,6 +1307,11 @@ to_stlist(struct context *buffer, const struct fds_drec_field *field)
     //     return ret_code;
     // }
 
+      ret_code = buffer_append(buffer,"END-STL");
+    if (ret_code != FDS_OK) {
+        return ret_code;
+    }
+
     return FDS_OK;
 }
 
@@ -1307,6 +1329,12 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
 {
     int ret_code;
     struct fds_stmlist_iter stMulList_iter;
+
+    ret_code = buffer_append(buffer,"Begin-STML");
+    if (ret_code != FDS_OK) {
+        return ret_code;
+    }
+
 
     // ret_code = buffer_append(buffer,"{\"@type\":\"subTemplateMultiList\",\"semantic\":\"");
     // if (ret_code != FDS_OK) {
@@ -1393,11 +1421,6 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
         // Iterator failed!
         return FDS_ERR_ARG;
     }
-    if(added>0)
-    { // Remove Extra Comma
-        --buffer->write_begin;
-    
-    }
 
     
 
@@ -1406,6 +1429,11 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
     // if (ret_code != FDS_OK){
     //     return ret_code;
     // }
+
+    ret_code = buffer_append(buffer,"END-STML");
+    if (ret_code != FDS_OK) {
+        return ret_code;
+    }
 
     return FDS_OK;
 }
