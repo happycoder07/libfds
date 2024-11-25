@@ -1393,6 +1393,13 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
         // Iterator failed!
         return FDS_ERR_ARG;
     }
+    if(added>0)
+    { // Remove Extra Comma
+        --buffer->write_begin;
+    
+    }
+
+    
 
     // Add closing bracket for field
     // ret_code = buffer_append(buffer,"]}");
