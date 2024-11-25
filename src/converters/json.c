@@ -1121,10 +1121,10 @@ to_blist(struct context *buffer, const struct fds_drec_field *field)
     int added = 0;
     struct fds_blist_iter blist_iter;
 
-    ret_code = buffer_append(buffer,"[");
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = buffer_append(buffer,"[");
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     fds_blist_iter_init(&blist_iter, (struct fds_drec_field *) field, buffer->mgr);
     converter_fn fn = NULL;
@@ -1179,16 +1179,16 @@ to_blist(struct context *buffer, const struct fds_drec_field *field)
         return FDS_ERR_ARG;
     }
 
-    // Add semantic and Field ID
-    ret_code = buffer_append(buffer, "]");
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // // Add semantic and Field ID
+    // ret_code = buffer_append(buffer, "]");
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
-    ret_code = add_sematic(buffer, blist_iter.semantic);
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = add_sematic(buffer, blist_iter.semantic);
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     // ret_code = buffer_append(buffer,"\",\"fieldID\":");
     // if (ret_code != FDS_OK) {
@@ -1312,10 +1312,10 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
     fds_stmlist_iter_init(&stMulList_iter, (struct fds_drec_field *) field, buffer->snap, 0);
 
     // Add semantic
-    ret_code = add_sematic(buffer, stMulList_iter.semantic);
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = add_sematic(buffer, stMulList_iter.semantic);
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     // ret_code = buffer_append(buffer,"\",\"data\":[");
     // if (ret_code != FDS_OK) {
