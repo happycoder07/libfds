@@ -1433,7 +1433,7 @@ add_field_name(struct context *buffer, const struct fds_drec_field *field)
         memcpy(buffer->write_begin, "\"en", 3U);
         buffer->write_begin += 3U;
         buffer->write_begin = u32toa_branchlut2(field->info->en, buffer->write_begin);
-        memcpy(buffer->write_begin, ":id", 3U);
+        memcpy(buffer->write_begin, ".id", 3U);
         buffer->write_begin += 3U;
         buffer->write_begin = u32toa_branchlut2(field->info->id, buffer->write_begin);
         *(buffer->write_begin++) = '"';
@@ -1454,7 +1454,7 @@ add_field_name(struct context *buffer, const struct fds_drec_field *field)
     memcpy(buffer->write_begin, def->scope->name, scope_size);
     buffer->write_begin += scope_size;
 
-    *(buffer->write_begin++) = ':';
+    *(buffer->write_begin++) = '.';
     memcpy(buffer->write_begin, def->name, elem_size);
     buffer->write_begin += elem_size;
     *(buffer->write_begin++) = '"';
