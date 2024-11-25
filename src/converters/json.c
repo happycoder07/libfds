@@ -1133,6 +1133,10 @@ to_blist(struct context *buffer, const struct fds_drec_field *field)
     if (ret_code != FDS_OK) {
         return ret_code;
     }
+    ret_code = buffer_append(buffer, "[");
+    if (ret_code != FDS_OK) {
+        return ret_code;
+    }
 
    
 
@@ -1179,11 +1183,11 @@ to_blist(struct context *buffer, const struct fds_drec_field *field)
         return FDS_ERR_ARG;
     }
 
-    // // Add semantic and Field ID
-    // ret_code = buffer_append(buffer, "]");
-    // if (ret_code != FDS_OK) {
-    //     return ret_code;
-    // }
+    //Append ] to list of values obtained
+    ret_code = buffer_append(buffer, "]");
+    if (ret_code != FDS_OK) {
+        return ret_code;
+    }
 
     // ret_code = add_sematic(buffer, blist_iter.semantic);
     // if (ret_code != FDS_OK) {
@@ -1235,10 +1239,10 @@ to_stlist(struct context *buffer, const struct fds_drec_field *field)
     fds_stlist_iter_init(&stlist_iter, (struct fds_drec_field *) field, buffer->snap, 0);
 
     // Add semantic
-    ret_code = add_sematic(buffer, stlist_iter.semantic);
-    if (ret_code != FDS_OK) {
-        return ret_code;
-    }
+    // ret_code = add_sematic(buffer, stlist_iter.semantic);
+    // if (ret_code != FDS_OK) {
+    //     return ret_code;
+    // }
 
     // ret_code = buffer_append(buffer,"\",\"data\":[");
     // if (ret_code != FDS_OK) {
@@ -1418,6 +1422,15 @@ add_field_name(struct context *buffer, const struct fds_drec_field *field)
 {
     const struct fds_iemgr_elem *def = field->info->def;
     bool num_id = ((buffer->flags & FDS_CD2J_NUMERIC_ID) != 0);
+
+    //Added to remove basiclist,stl,stml list in json outptut
+    uint32_t pen=field->info->en;
+    uint16_t id=field->info->id;
+
+    if(pen ==0 && (id==291 || id==292 ||id==293))
+    {
+        return FDS_OK;
+    }
 
     // If definition of field is unknown or if flag FDS_CD2J_NUMERIC_ID is set,
     // then identifier will be in format "enXX:idYY"
