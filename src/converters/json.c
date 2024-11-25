@@ -1311,6 +1311,10 @@ to_stlist(struct context *buffer, const struct fds_drec_field *field)
     if (ret_code != FDS_OK) {
         return ret_code;
     }
+    if(added==0)
+    {
+        --buffer->write_begin;
+    }
 
     return FDS_OK;
 }
