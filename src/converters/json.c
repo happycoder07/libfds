@@ -44,6 +44,9 @@ struct context {
     const fds_iemgr_t *mgr;
     /// Template snapshot
     const fds_tsnapshot_t *snap;
+
+    /// Check if any filed is added
+    bool added;
 };
 
 /**
@@ -1011,13 +1014,13 @@ iter_loop(const struct fds_drec *rec, struct context *buffer)
         }
 
         // Separate fields
-        if (added != 0) {
-            // Add comma
-            ret_code = buffer_append(buffer, ",");
-            if (ret_code != FDS_OK) {
-                return ret_code;
-            }
-        }
+        // if (added != 0) {
+        //     // Add comma
+        //     ret_code = buffer_append(buffer, ",");
+        //     if (ret_code != FDS_OK) {
+        //         return ret_code;
+        //     }
+        // }
 
         // Add field name "<pen>:<field_name>"
         ret_code = add_field_name(buffer, &iter.field);
@@ -1311,10 +1314,8 @@ to_stlist(struct context *buffer, const struct fds_drec_field *field)
     if (ret_code != FDS_OK) {
         return ret_code;
     }
-    if(added==0)
-    {
-        --buffer->write_begin;
-    }
+   
+   
 
     return FDS_OK;
 }
@@ -1367,10 +1368,10 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
         // Separate fields
         if (added > 0) {
             // Add comma
-            ret_code = buffer_append(buffer,",");
-            if (ret_code != FDS_OK) {
-                return ret_code;
-            }
+            // ret_code = buffer_append(buffer,",");
+            // if (ret_code != FDS_OK) {
+            //     return ret_code;
+            // }
         }
         // // Add opening bracket for block
         // ret_code = buffer_append(buffer,"[");
@@ -1384,10 +1385,10 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
             // Separate fields
             if (added_in_block > 0) {
                 // Add comma
-                ret_code = buffer_append(buffer,",");
-                if (ret_code != FDS_OK) {
-                    return ret_code;
-                }
+                // ret_code = buffer_append(buffer,",");
+                // if (ret_code != FDS_OK) {
+                //     return ret_code;
+                // }
             }
             // Add opening bracket for the record
             // ret_code = buffer_append(buffer,"{");
@@ -1459,6 +1460,17 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
 int
 add_field_name(struct context *buffer, const struct fds_drec_field *field)
 {
+    if(buffer->added==false)
+    {
+        //Adding First Field
+        buffer->added=true;
+
+    }
+    else{
+        //There exist a field which is added earlieer hence we need to add comma;
+        *(buffer->write_begin++) = ',';
+
+    }
     const struct fds_iemgr_elem *def = field->info->def;
     bool num_id = ((buffer->flags & FDS_CD2J_NUMERIC_ID) != 0);
 
