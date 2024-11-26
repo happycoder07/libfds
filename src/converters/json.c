@@ -1555,6 +1555,8 @@ fds_drec2json(const struct fds_drec *rec, uint32_t flags, const fds_iemgr_t *ie_
     record.flags = flags;
     record.mgr = ie_mgr;
     record.snap = rec->snap;
+    //Add to ensure the first field is not added initially
+    record.added=false;
 
     // Convert the record
     int ret_code;
