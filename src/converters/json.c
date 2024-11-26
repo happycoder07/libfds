@@ -1460,17 +1460,7 @@ to_stMulList(struct context *buffer, const struct fds_drec_field *field)
 int
 add_field_name(struct context *buffer, const struct fds_drec_field *field)
 {
-    if(buffer->added==false)
-    {
-        //Adding First Field
-        buffer->added=true;
-
-    }
-    else{
-        //There exist a field which is added earlieer hence we need to add comma;
-        *(buffer->write_begin++) = ',';
-
-    }
+   
     const struct fds_iemgr_elem *def = field->info->def;
     bool num_id = ((buffer->flags & FDS_CD2J_NUMERIC_ID) != 0);
 
@@ -1481,6 +1471,17 @@ add_field_name(struct context *buffer, const struct fds_drec_field *field)
     if(pen ==0 && (id==291 || id==292 ||id==293))
     {
         return FDS_OK;
+    }
+     if(buffer->added==false)
+    {
+        //Adding First Field
+        buffer->added=true;
+
+    }
+    else{
+        //There exist a field which is added earlieer hence we need to add comma;
+        *(buffer->write_begin++) = ',';
+
     }
 
     // If definition of field is unknown or if flag FDS_CD2J_NUMERIC_ID is set,
