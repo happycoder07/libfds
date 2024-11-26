@@ -1272,13 +1272,13 @@ to_stlist(struct context *buffer, const struct fds_drec_field *field)
     // Add records from the list
     int rc_iter;
     while ((rc_iter = fds_stlist_iter_next(&stlist_iter)) == FDS_OK) {
-        if (added > 0) {
-            // Add comma
-            ret_code = buffer_append(buffer,",");
-            if (ret_code != FDS_OK) {
-                return ret_code;
-            }
-        }
+        // if (added > 0) {
+        //     // Add comma
+        //     ret_code = buffer_append(buffer,",");
+        //     if (ret_code != FDS_OK) {
+        //         return ret_code;
+        //     }
+        // }
 
         // Add "{" in the beginning of each structure
         // ret_code = buffer_append(buffer,"{");
